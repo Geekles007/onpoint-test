@@ -1,6 +1,4 @@
 import React from "react";
-import Blink from "../../blink/blink.js";
-import arrow from "./../../../arrow.png";
 
 export default class First extends React.Component {
 
@@ -12,7 +10,7 @@ export default class First extends React.Component {
                 <Blink name="Гипогликемия" status="left" width="120px" height="120px"></Blink>
                 <Blink name="СС риски" status="right" width="70px" height="70px"></Blink>
                 <Blink name="Осложнения СД" status="bottom" width="50px" height="50px"></Blink>
-                <a href="#" className="scroll_down">
+                <a className="scroll_down">
                     <span>Листайте вниз</span>
                     <img src={arrow} alt="arrow" />
                 </a>

@@ -4,8 +4,8 @@ import './App.css';
 import stone from "./stone.png";
 
 import Third from './components/layout/third/third.js';
-import First from './components/layout/first/first';
-import Nav from './components/layout/nav/nav';
+import Blink from "./components/blink/blink.js";
+import arrow from "./arrow.png";
 
 export default class App extends React.Component {
 
@@ -36,19 +36,28 @@ export default class App extends React.Component {
   }
   
   listenToScroll = () => {
+    var a1 = document.getElementById('a1');
+    var a2 = document.getElementById('a2');
+    var a3 = document.getElementById('a3');
+
     const winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
-  
-    // const height =
-    //   document.documentElement.scrollHeight -
-    //   document.documentElement.clientHeight;
-    //   console.log(height);
-  
-    // const scrolled = winScroll / height
   
     this.setState({
       theposition: winScroll,
     });
+
+    if(this.state.theposition < 786 / 2) {
+      a1.classList.add('activated');
+      a2.classList.remove('activated');
+    } else if(this.state.theposition < 786) {
+      a2.classList.add('activated');
+      a1.classList.remove('activated');
+      a3.classList.remove('activated');
+    } else if(this.state.theposition >= 1536) {
+      a3.classList.add('activated');
+      a2.classList.remove('activated');
+    }
 
     console.log(this.state.theposition);
   }
@@ -58,11 +67,22 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <div className="nav">
-            <a className={this.props.theposition <= 785 ? "activated" : ""} onClick={this.scroll} value="0"></a>
-            <a className={this.props.theposition > 786 ? "activated" : ""} onClick={this.scroll} value="786"></a>
-            <a className={this.props.theposition >= 1300 ? "activated" : ""} onClick={this.scroll} value="1536"></a>
+            <a onClick={this.scroll} id="a1" value="0"></a>
+            <a onClick={this.scroll} id="a2" value="786"></a>
+            <a onClick={this.scroll} id="a3" value="1536"></a>
         </div>
-        <First id="first"></First>
+        <section className="first" id="first">
+            <h2>Всегда ли цели терапии СД2 на поверхности?</h2>
+            <Blink name="Цель по НьА1с" status="top" width="200px" height="200px"></Blink>
+            <Blink name="Гипогликемия" status="left" width="120px" height="120px"></Blink>
+            <Blink name="СС риски" status="right" width="70px" height="70px"></Blink>
+            <Blink name="Осложнения СД" status="bottom" width="50px" height="50px"></Blink>
+            <a onClick={this.scroll} value="786" className="scroll_down">
+                <span>Листайте вниз</span>
+                <img src={arrow} alt="arrow" />
+            </a>
+            <div className="light"></div>
+        </section>
         <section className="second" id="second">
           <img src={stone} alt="stone" />
 
